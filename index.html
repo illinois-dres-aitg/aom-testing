@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>AOM Test File</title>
+
+  <script>
+
+    window.addEventListener('load', function() {
+      var resultNode = document.getElementById('results');
+      var results = '<ul>\n';
+
+      function getNodeInformation(node) {
+        var str = '';
+        str = '  <li>'+ node.tagName + '\n';
+        str += '    <ul>\n';
+        str += '      <li>role: '+ node.role + '</li>\n';
+        str += '      <li>ariaLabel: '+ node.ariaLabel + '</li>\n';
+        str += '    </ul>\n';
+        str += '  </li>\n'
+        return str;
+      }
+
+
+      function examineNode(node) {
+
+
+        while (node) {
+          if (node.classList.contains('ignore')) {
+            break;
+          }
+          results += getNodeInformation(node);
+          if (node.firstElementChild) {
+            examineNode(node.firstElementChild);
+          }
+          node = node.nextElementSibling;
+        }
+      }
+
+      examineNode(document.body.firstElementChild);
+
+      results += '</ul>\n';
+
+      resultNode.innerHTML = results;
+
+    });
+
+  </script>
+
+</head>
+<body>
+  <h1>AOM Test File</h1>
+
+  <div role="heading" aria-level="2" aria-label="test" id="test">Show AOM Results</h2>
+  <div class="ignore" id="results"></div>
+</body>
