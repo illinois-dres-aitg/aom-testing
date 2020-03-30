@@ -14,6 +14,7 @@
         str = '  <li>'+ node.tagName + '\n';
         str += '    <ul>\n';
         str += '      <li>role: '+ node.role + '</li>\n';
+        str += '      <li>ariaLevel: '+ node.ariaLevel + '</li>\n';
         str += '      <li>ariaLabel: '+ node.ariaLabel + '</li>\n';
         str += '    </ul>\n';
         str += '  </li>\n'
@@ -25,7 +26,7 @@
 
 
         while (node) {
-          if (node.classList.contains('ignore')) {
+          if (node.classList.contains('ignore') || node.tagName == 'CODE') {
             break;
           }
           results += getNodeInformation(node);
@@ -50,6 +51,11 @@
 <body>
   <h1>AOM Test File</h1>
 
-  <div role="heading" aria-level="2" aria-label="test" id="test">Show AOM Results</h2>
+  <div role="heading" aria-level="2">Show AOM Results for a heading made with a <code>div</code> element and label from text content.</div>
+
+  <div role="heading" aria-level="3" aria-label="A new label" id="test">Show AOM Results for a heading made with a <code>div</code> element with an <code>aria-label</code> attribute.</div>
+
+  <div role="heading" aria-level="4" aria-labelledby="test" id="test">Show AOM Results for a heaheading made with a <code>div</code> element with an <code>aria-labelledby</code> attribute.</div></h2>
+
   <div class="ignore" id="results"></div>
 </body>
